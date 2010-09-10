@@ -1,0 +1,22 @@
+=head2 Fri Sep 10 15:30:43 2010: C<Module> L<Amon2|Amon2>
+
+=over 4
+
+=item *
+
+C<installed into: /home/tokuhirom/dev/GPSTest/extlib/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 0.44>
+
+=item *
+
+C<EXE_FILES: script/amon-setup.pl>
+
+=back
+
