@@ -1,0 +1,12 @@
+[% INCLUDE 'include/header.tt' %]
+
+<h1>チェックインに成功しました</h1>
+
+[% IF distance %]<p>移動距離: [% 0+distance | format('%.2f') %]km</p>[% END %]
+<p>座標: [% location.lat %],[% location.lng %]</p>
+
+<hr />
+
+<a href="/my/">My Page</a>
+
+[% INCLUDE 'include/footer.tt' %]

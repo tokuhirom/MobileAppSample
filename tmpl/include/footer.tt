@@ -1,7 +1,10 @@
+        <hr />
+        [% IF c().session_user_id() %]
+        <a href="/my/">my page</a>
+        [% ELSE %]
+        <a href="/">top</a>
+        [% END %]
         </div>
-        <div id="FooterContainer"><div id="Footer">
-            Powered by Amon2
-        </div></div>
     </div>
 </body>
 </html>

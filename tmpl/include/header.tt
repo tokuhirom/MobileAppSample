@@ -5,11 +5,8 @@
     <title>GPSTest</title>
     <meta http-equiv="Content-Style-Type" content="text/css" />  
     <meta http-equiv="Content-Script-Type" content="text/javascript" />  
-    <link href="[% c().uri_for('/static/css/main.css') %]" rel="stylesheet" type="text/css" media="screen" />
 </head>
 <body>
     <div id="Container">
-        <div id="Header">
-            <a href="[% c().uri_for('/') %]">Amon2 Startup Page</a>
-        </div>
         <div id="Content">
+

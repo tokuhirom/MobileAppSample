@@ -1,0 +1,13 @@
+[% INCLUDE 'include/header.tt' %]
+
+<h1>位置ゲーのサンプル</h1>
+
+<p>[% a_tag %]チェックイン</a></p>
+
+<p>
+これは位置ゲーのサンプルです。<br />
+</p>
+
+<a href="[% c().uri_for('/my/history') %]">過去履歴</a>
+
+[% INCLUDE 'include/footer.tt' %]

@@ -1,0 +1,9 @@
+[% INCLUDE 'include/header.tt' %]
+
+<h1>GPS Test Page</h1>
+
+<div>
+    [% location.lat %], [% location.lng %]
+</div>
+
+[% INCLUDE 'include/footer.tt' %]

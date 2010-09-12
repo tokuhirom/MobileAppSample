@@ -1,0 +1,17 @@
+[% INCLUDE 'include/header.tt' %]
+
+<h1>移動履歴</h1>
+
+[% FOR row IN rows %]
+座標: [% row.decode_pos.lat | format('%.2f') %],[% row.decode_pos.lng | format('%.2f') %]<br />
+日時: [% row.timestamp | replace(':\d\d$', '') %]<br />
+[% END %]
+
+[% IF page!=1 %]
+<a href="[%  c().req().uri_with({page => page - 1}) %]">前へ</a>
+[% END %]
+[% IF has_next %]
+<a href="[% c().req().uri_with({page => page + 1}) %]">次へ</a>
+[% END %]
+
+[% INCLUDE 'include/footer.tt' %]

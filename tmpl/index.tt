@@ -1,5 +1,12 @@
 [% INCLUDE 'include/header.tt' %]
 
-hello, Amon2 world!
+<h1>位置ゲーのサンプル</h1>
+
+<p><a href="/login?guid=ON">ログイン</a></p>
+
+<p>
+これは位置ゲーのサンプルです。<br />
+かんたんログインは脆弱ですが、それはこのサイトの本質ではないので無視しましょう。<br />
+</p>
 
 [% INCLUDE 'include/footer.tt' %]

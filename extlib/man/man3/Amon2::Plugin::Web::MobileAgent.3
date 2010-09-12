@@ -124,7 +124,7 @@
 .\" ========================================================================
 .\"
 .IX Title "Amon2::Plugin::Web::MobileAgent 3"
-.TH Amon2::Plugin::Web::MobileAgent 3 "2010-09-10" "perl v5.12.1" "User Contributed Perl Documentation"
+.TH Amon2::Plugin::Web::MobileAgent 3 "2010-09-12" "perl v5.12.1" "User Contributed Perl Documentation"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -133,14 +133,11 @@
 Amon2::Plugin::Web::MobileAgent \- HTTP::MobileAgent plugin for Amon2
 .SH "SYNOPSIS"
 .IX Header "SYNOPSIS"
-.Vb 8
+.Vb 5
 \&    package MyApp::Web;
-\&    use Amon2::Web \-base => (
-\&        view_class => \*(AqText::MicroTemplate::File\*(Aq,
-\&    );
-\&    _\|_PACKAGE_\|_\->load_plugins(
-\&        qw/ Web::MobileAgent /
-\&    );
+\&    use parent qw/MyApp Amon2::Web/;
+\&    _\|_PACKAGE_\|_\->setup();
+\&    _\|_PACKAGE_\|_\->load_plugins(\*(AqWeb::MobileAgent\*(Aq);
 \&    1;
 \&
 \&    # in your controller

@@ -21,6 +21,7 @@ package <%= $module %>;
 use strict;
 use warnings;
 use parent qw/Amon2/;
+our $VERSION='0.01';
 __PACKAGE__->load_plugins(qw/ConfigLoader LogDispatch/);
 1;
 -- lib/$path/Web.pm
@@ -29,7 +30,7 @@ use strict;
 use warnings;
 use parent qw/<%= $module %> Amon2::Web/;
 __PACKAGE__->add_config(
-    'fTall::Text::Xslate' => {
+    'Text::Xslate' => {
         'syntax'   => 'TTerse',
         'function' => {
             c => sub { Amon2->context() },
@@ -39,10 +40,6 @@ __PACKAGE__->add_config(
 __PACKAGE__->setup(
     view_class => 'Text::Xslate',
 );
-1;
--- lib/$path/V/MT/Context.pm
-package <%= $module %>::V::MT::Context;
-use Amon2::V::MT::Context;
 1;
 -- lib/$path/Web/Dispatcher.pm
 package <%= $module %>::Web::Dispatcher;
@@ -193,6 +190,10 @@ form.nopaste p.submit-btn input {
 }
 
 -- $dist.psgi
+use File::Spec;
+use File::Basename;
+use local::lib File::Spec->catdir(dirname(__FILE__), 'extlib');
+use lib File::Spec->catdir(dirname(__FILE__), 'lib');
 use <%= $module %>::Web;
 use Plack::Builder;
 
@@ -208,6 +209,7 @@ all_from "lib/<%= $path %>.pm";
 
 tests 't/*.t t/*/*.t t/*/*/*.t';
 requires 'Amon2';
+requires 'Text::Xslate';
 recursive_author_tests('xt');
 
 WriteAll;
@@ -349,6 +351,7 @@ sub main {
     _mkpath "htdocs/static/css/";
     _mkpath "htdocs/static/img/";
     _mkpath "htdocs/static/js/";
+    _mkpath "extlib/";
 
     my $conf = _parse_conf($confsrc);
     while (my ($file, $tmpl) = each %$conf) {
