@@ -6,8 +6,11 @@ use GPSTest::Web;
 use Plack::Builder;
 
 builder {
-    enable 'Plack::Middleware::Static',
-        path => qr{^/static/},
-        root => './htdocs/';
-    GPSTest::Web->to_app();
+    mount '/gpstest/' => builder {
+        enable 'Plack::Middleware::ReverseProxy';
+        enable 'Plack::Middleware::Static',
+            path => qr{^/static/},
+            root => './htdocs/';
+        GPSTest::Web->to_app();
+    };
 };

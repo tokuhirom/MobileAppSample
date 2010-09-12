@@ -10,6 +10,7 @@ requires 'HTTP::MobileAgent';
 requires 'HTTP::MobileAgent::Locator';
 requires 'HTTP::Session::Store::DBI';
 requires 'Geo::Coordinates::Converter::IArea';
+requires 'Plack::Middleware::ReverseProxy';
 
 tests 't/*.t t/*/*.t t/*/*/*.t';
 requires 'Amon2';
