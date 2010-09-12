@@ -3,6 +3,7 @@ use strict;
 use warnings;
 use parent qw/DBIx::Skinny::Row/;
 use Geo::Hash::XS;
+use GPSTest::UUID;
 
 my $gh = Geo::Hash::XS->new();
 
@@ -23,6 +24,11 @@ sub areaname {
     return unless $self->areacode;
     Geo::Coordinates::Converter::iArea->get_name( sprintf '%05d',
         $self->areacode );
+}
+
+sub pos_id_str {
+    my ($self, ) = @_;
+    GPSTest::UUID->bin2str($self->pos_id);
 }
 
 1;

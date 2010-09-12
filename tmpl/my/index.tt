@@ -8,6 +8,6 @@
 これは位置ゲーのサンプルです。<br />
 </p>
 
-<a href="[% c().uri_for('/my/history') %]">過去履歴</a>
+<a href="[% uri_for('/my/history') %]">過去履歴</a>
 
 [% INCLUDE 'include/footer.tt' %]

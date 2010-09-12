@@ -5,5 +5,6 @@
 [% IF distance %]<p>移動距離: [% 0+distance | format('%.2f') %]km</p>[% END %]
 [% IF areaname %]<p>地名:[% areaname %]</p>[% END %]
 <p>座標: [% location.lat %],[% location.lng %]</p>
+<a href="[% uri_for('/my/pos/show', {pos_id => pos.pos_id_str()}) %]">地図をみる</a>
 
 [% INCLUDE 'include/footer.tt' %]

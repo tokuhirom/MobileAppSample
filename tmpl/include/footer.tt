@@ -1,8 +1,8 @@
         <hr />
         [% IF c().session_user_id() %]
-        <a href="/my/">my page</a>
+        <a href="[% uri_for('/my/') %]">my page</a>
         [% ELSE %]
-        <a href="/">top</a>
+        <a href="[% uri_for('/') %]">top</a>
         [% END %]
         </div>
     </div>

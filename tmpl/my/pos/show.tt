@@ -1,0 +1,26 @@
+[% INCLUDE 'include/header.tt' %]
+
+<h1>位置情報詳細</h1>
+
+lat: [% pos.decode_pos.lat %]<br />
+lng: [% pos.decode_pos.lng %]<br />
+areaname: [% pos.areaname %]<br />
+areacode: [% pos.areacode %]<br />
+geohash: [% pos.geohash %]<br />
+timestamp: [% pos.timestamp %]<br />
+
+<div style="text-align: center;">
+    <img src="http://maps.google.com/maps/api/staticmap?center=[% pos.decode_pos.lat %],[% pos.decode_pos.lng %]&zoom=[% zoom %]&size=320x320&format=jpg&language=jp&sensor=false" />
+</div>
+
+<form method="get" action="[% uri_with({}) %]">
+    <select name="zoom">
+        [% FOR z IN zzz %][%# fucking xsalte does not supports range constructor yet. %]
+        <option value="[% z %]">[% z %]</option>
+        [% END %]
+    </select>
+    <input type="hidden" name="pos_id" value="[% pos.pos_id_str() %]" />
+    <input type="submit" value="zoom!" />
+</form>
+
+[% INCLUDE 'include/footer.tt' %]

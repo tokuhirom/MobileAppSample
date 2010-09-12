@@ -59,7 +59,7 @@ sub checkin {
     my $areacode = point2areacode($location);
 
     my $user_id = $c->session_user_id // die;
-    $c->db->insert(
+    my $pos = $c->db->insert(
         'pos' => {
             user_id => $user_id,
             geohash => $geohash,
@@ -77,6 +77,7 @@ sub checkin {
             location => $location,
             distance => $distance,
             areaname => areacode2areaname($areacode),
+            pos      => $pos,
         }
     );
 }

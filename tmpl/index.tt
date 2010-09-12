@@ -2,7 +2,7 @@
 
 <h1>位置ゲーのサンプル</h1>
 
-<p><a href="/login?guid=ON">ログイン</a></p>
+<p><a href="[% uri_for('/login?guid=ON') %]">ログイン</a></p>
 
 <p>
 これは位置ゲーのサンプルです。<br />

@@ -16,6 +16,8 @@ __PACKAGE__->add_config(
             module => [ 'Text::Xslate::Bridge::TT2Like' ],
         'function' => {
             c => sub { Amon2->context() },
+            uri_with => sub { Amon2->context()->req->uri_with(@_) },
+            uri_for  => sub { Amon2->context()->uri_for(@_) },
         },
     }
 );
@@ -25,6 +27,7 @@ __PACKAGE__->setup(
 );
 
 __PACKAGE__->load_plugins('Web::MobileAgent');
+__PACKAGE__->load_plugins('Web::FillInFormLite');
 sub session {
     my $c = shift;
     $c->{session} //= do {
