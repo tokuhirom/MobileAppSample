@@ -79,4 +79,9 @@ sub session_user_id {
     $self->session->get('user_id')
 }
 
+sub session_user {
+    my ($self) = @_;
+    $self->db->single(user => {user_id => $self->session_user_id()});
+}
+
 1;

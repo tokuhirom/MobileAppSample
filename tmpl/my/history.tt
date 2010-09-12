@@ -3,6 +3,7 @@
 <h1>移動履歴</h1>
 
 [% FOR row IN rows %]
+地名: [% IF row.areaname %][% row.areaname %][% ELSE %]不明[% END %]<br />
 座標: [% row.decode_pos.lat | format('%.2f') %],[% row.decode_pos.lng | format('%.2f') %]<br />
 日時: [% row.timestamp | replace(':\d\d$', '') %]<br />
 [% END %]

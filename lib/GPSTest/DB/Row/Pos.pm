@@ -18,4 +18,11 @@ sub decode_pos {
     };
 }
 
+sub areaname {
+    my ($self) = @_;
+    return unless $self->areacode;
+    Geo::Coordinates::Converter::iArea->get_name( sprintf '%05d',
+        $self->areacode );
+}
+
 1;

@@ -6,10 +6,4 @@
     <pre>[% message %]</pre>
 </div>
 
-[% IF c().session_user_id() %]
-<a href="/my/">my page</a>
-[% ELSE %]
-<a href="/">top</a>
-[% END %]
-
 [% INCLUDE 'include/footer.tt' %]

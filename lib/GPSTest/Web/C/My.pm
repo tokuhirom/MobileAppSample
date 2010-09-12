@@ -56,11 +56,14 @@ sub checkin {
         $c->db->do(q{UPDATE user SET total_distance = total_distance + ? WHERE user_id=?}, {}, $distance, $c->session_user_id);
     }
 
+    my $areacode = point2areacode($location);
+
     my $user_id = $c->session_user_id // die;
     $c->db->insert(
         'pos' => {
             user_id => $user_id,
             geohash => $geohash,
+            areacode => $areacode,
         },
     );
 
@@ -68,7 +71,14 @@ sub checkin {
 
     $txn->commit;
 
-    $c->render('my/checkin.tt', {location => $location, distance => $distance});
+    $c->render(
+        'my/checkin.tt',
+        {
+            location => $location,
+            distance => $distance,
+            areaname => areacode2areaname($areacode),
+        }
+    );
 }
 
 sub history {
@@ -89,6 +99,21 @@ sub history {
             page     => $page,
         }
     );
+}
+
+sub point2areacode {
+    my ($point) = @_;
+    my $geo = Geo::Coordinates::Converter->new(
+        formats => [qw/ iArea /],
+        point   => $point->clone,
+    );
+    my $np = $geo->convert('iarea');
+    return $np->{areacode};
+}
+
+sub areacode2areaname {
+    my ($areacode) = @_;
+    Geo::Coordinates::Converter::iArea->get_name($areacode);
 }
 
 1;

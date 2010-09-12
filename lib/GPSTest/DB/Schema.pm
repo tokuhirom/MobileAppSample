@@ -3,7 +3,7 @@ use DBIx::Skinny::Schema;
 
 install_table pos => schema {
     pk qw/pos_id/;
-    columns qw/pos_id user_id geohash timestamp/;
+    columns qw/pos_id user_id geohash areacode timestamp/;
 };
 
 install_table session => schema {

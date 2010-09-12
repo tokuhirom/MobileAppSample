@@ -9,6 +9,7 @@ create table pos (
     pos_id int unsigned not null auto_increment primary key,
     user_id int unsigned not null,
     geohash varchar(12) binary not null,
+    areacode   INT UNSIGNED DEFAULT NULL,
     timestamp timestamp not null,
     index (user_id, pos_id)
 ) engine=innodb;
