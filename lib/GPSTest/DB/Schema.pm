@@ -13,7 +13,7 @@ install_table session => schema {
 
 install_table ticket => schema {
     pk qw/ticket_uuid/;
-    columns qw/ticket_uuid/;
+    columns qw/ticket_uuid ctime/;
 };
 
 install_table user => schema {

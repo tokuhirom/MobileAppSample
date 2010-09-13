@@ -17,6 +17,11 @@ __PACKAGE__->add_config(
             c => sub { Amon2->context() },
             uri_with => sub { Amon2->context()->req->uri_with(@_) },
             uri_for  => sub { Amon2->context()->uri_for(@_) },
+            commify  => sub {
+                local $_  = shift;
+                1 while s/((?:\A|[^.0-9])[-+]?\d+)(\d{3})/$1,$2/s;
+                return $_;
+            },
         },
     }
 );
@@ -51,8 +56,14 @@ __PACKAGE__->add_trigger(
         if ($c->req->mobile_agent->is_non_mobile) {
             return $c->show_error('this site requires mobile phone :' . $c->req->user_agent);
         }
-        if ($c->req->path_info =~ m{^/my/} && !$c->session_user_id) {
-            return $c->redirect('/');
+        if ($c->req->path_info =~ m{^/my/}) {
+            if (!$c->session_user()) {
+                return $c->redirect('/');
+            }
+        } else {
+            if ($c->session_user) {
+                return $c->redirect('/my/');
+            }
         }
     }
 );

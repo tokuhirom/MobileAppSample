@@ -4,6 +4,10 @@
 
 <p>[% a_tag %]チェックイン</a></p>
 
+<div>
+    現在の総移動距離: <B>[% user.total_distance() | commify %]km</B>
+</div>
+
 <p>
 これは位置ゲーのサンプルです。<br />
 </p>

@@ -24,6 +24,7 @@ sub index {
     );
     $c->render('my/index.tt', {
         a_tag => mark_raw($tag),
+        user  => $c->session_user(),
     });
 }
 
@@ -37,6 +38,9 @@ sub checkin {
       // return $c->show_error(
         "戻るボタンをおしたり、リロードしたりしてはだめです"
       );
+    if ($ticket->ctime < time()-10*60*60) {
+        return $c->show_error("10分以上経過しています。Myページからやりなおしてください。");
+    }
     my $locator = do {
         $HTTP::MobileAgent::Plugin::Locator::LOCATOR_BASIC;
     };

@@ -13,7 +13,7 @@ sub show {
     my $zoom = $c->req->param('zoom') || 19;
     return $c->render( 'my/pos/show.tt',
         { 'pos' => $pos, zoom => $zoom, zzz => [ 1 .. 21 ], } )
-      ->fillin_form( $c->req );
+      ->fillin_form( {zoom => $zoom} );
 }
 
 1;

@@ -16,7 +16,9 @@ create table pos (
 
 create table ticket (
     ticket_uuid binary(16) not null,
-    primary key (ticket_uuid)
+    ctime       INT UNSIGNED NOT NULL,
+    primary key (ticket_uuid),
+    index (ctime) ## for deleting old tickets
 ) engine=innodb;
 
 CREATE TABLE session (
