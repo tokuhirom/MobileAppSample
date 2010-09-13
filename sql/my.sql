@@ -1,7 +1,7 @@
 create table user (
     user_id int unsigned not null auto_increment primary key,
     mobile_uid varchar(255) BINARY NOT NULL,
-    total_distance bigint not null default 0,
+    total_distance DECIMAL(5,2) not null default 0,
     UNIQUE (mobile_uid)
 ) engine=innodb;
 

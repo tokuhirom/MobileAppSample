@@ -9,6 +9,15 @@ use GIS::Distance::Lite;
 use Geo::Coordinates::Converter::iArea;
 use URI::WithBase;
 
+# softbank は gps 対応機種は basic location つかえないっぽい？
+
+sub _is_gps {
+    my ($class, $c) = @_;
+    my $agent = $c->req->mobile_agent;
+    return 1 if $agent->is_softbank && $agent->gps_compliant;
+    return 0;
+}
+
 sub index {
     my ($class, $c) = @_;
     my $agent = $c->req->mobile_agent;
@@ -16,10 +25,9 @@ sub index {
     my $ticket = GPSTest::M::Ticket->create();
     my $sid = $c->session->session_id();
     my $callback = URI::WithBase->new($c->uri_for("/my/checkin/$sid/$ticket"), $c->req->base);
-    my $is_gps = 0;
     my $tag = gps_a(
         carrier      => $carrier,
-        is_gps       => $is_gps,
+        is_gps       => $class->_is_gps($c),
         callback_url => $callback->abs->as_string(),
     );
     $c->render('my/index.tt', {
@@ -42,7 +50,7 @@ sub checkin {
         return $c->show_error("10分以上経過しています。Myページからやりなおしてください。");
     }
     my $locator = do {
-        $HTTP::MobileAgent::Plugin::Locator::LOCATOR_BASIC;
+        $class->_is_gps($c) ? $HTTP::MobileAgent::Pluign::Locator::GPS : $HTTP::MobileAgent::Plugin::Locator::LOCATOR_BASIC;
     };
     my $location_raw = $c->req->mobile_agent->get_location($c->req, {locator => $locator}) // return $c->show_error("cannot get location info");
     my $location =

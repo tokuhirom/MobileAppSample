@@ -35,7 +35,9 @@ __PACKAGE__->load_plugins('Web::FillInFormLite');
 sub session {
     my $c = shift;
     $c->{session} //= do {
-        my $state = GPSTest::HTTP::Session::State->new();
+        my $state = GPSTest::HTTP::Session::State->new(
+            session_id_name => 'gsid',
+        );
         my $store = HTTP::Session::Store::DBI->new( dbh => $c->db->dbh, );
         HTTP::Session->new(
             state   => $state,
@@ -72,7 +74,9 @@ __PACKAGE__->add_trigger(
         my ($c, $res) = @_;
         $c->session->response_filter($res);
         $c->session->finalize();
-        $res->content_length(length $res->content);
+        if ($res->content_type =~ /html/ && !ref $res->content) {
+            $res->content_length(length $res->content);
+        }
     },
 );
 
