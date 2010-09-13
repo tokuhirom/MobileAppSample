@@ -32,6 +32,7 @@ __PACKAGE__->setup(
 
 __PACKAGE__->load_plugins('Web::MobileAgent');
 __PACKAGE__->load_plugins('Web::FillInFormLite');
+__PACKAGE__->load_plugins('Web::NoCache');
 sub session {
     my $c = shift;
     $c->{session} //= do {
