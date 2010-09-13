@@ -17,6 +17,7 @@
 /home/tokuhirom/dev/GPSTest/extlib/lib/perl5/Amon2/Plugin/Web/JSON.pm
 /home/tokuhirom/dev/GPSTest/extlib/lib/perl5/Amon2/Plugin/Web/MobileAgent.pm
 /home/tokuhirom/dev/GPSTest/extlib/lib/perl5/Amon2/Plugin/Web/MobileCharset.pm
+/home/tokuhirom/dev/GPSTest/extlib/lib/perl5/Amon2/Plugin/Web/NoCache.pm
 /home/tokuhirom/dev/GPSTest/extlib/lib/perl5/Amon2/Trigger.pm
 /home/tokuhirom/dev/GPSTest/extlib/lib/perl5/Amon2/Util.pm
 /home/tokuhirom/dev/GPSTest/extlib/lib/perl5/Amon2/Web.pm
@@ -42,6 +43,7 @@
 /home/tokuhirom/dev/GPSTest/extlib/man/man3/Amon2::Plugin::Web::HTTPSession.3
 /home/tokuhirom/dev/GPSTest/extlib/man/man3/Amon2::Plugin::Web::MobileAgent.3
 /home/tokuhirom/dev/GPSTest/extlib/man/man3/Amon2::Plugin::Web::MobileCharset.3
+/home/tokuhirom/dev/GPSTest/extlib/man/man3/Amon2::Plugin::Web::NoCache.3
 /home/tokuhirom/dev/GPSTest/extlib/man/man3/Amon2::Util.3
 /home/tokuhirom/dev/GPSTest/extlib/man/man3/Amon2::Web::Dispatcher::Lite.3
 /home/tokuhirom/dev/GPSTest/extlib/man/man3/Amon2::Web::Dispatcher::PathAttrRouter.3

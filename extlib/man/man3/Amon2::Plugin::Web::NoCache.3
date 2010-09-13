@@ -123,33 +123,14 @@
 .rm #[ #] #H #V #F C
 .\" ========================================================================
 .\"
-.IX Title "Amon2::Plugin::Web::FillInForm 3"
-.TH Amon2::Plugin::Web::FillInForm 3 "2010-09-13" "perl v5.12.1" "User Contributed Perl Documentation"
+.IX Title "Amon2::Plugin::Web::NoCache 3"
+.TH Amon2::Plugin::Web::NoCache 3 "2010-09-13" "perl v5.12.1" "User Contributed Perl Documentation"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
 .nh
-.SH "NAME"
-Amon2::Plugin::Web::FillInForm \- HTML::FillInForm
 .SH "SYNOPSIS"
 .IX Header "SYNOPSIS"
-.Vb 5
-\&  package MyApp::Web;
-\&  use Amon2::Web \-base => (
-\&  );
-\&  _\|_PACKAGE_\|_\->load_plugins(qw/Web::FillInForm/);
-\&  1;
-\&
-\&  package MyApp::Web::C::Root;
-\&
-\&  sub post_edit {
-\&    render(\*(Aqedit.html\*(Aq)\->fillin_form(req());
-\&  }
-\&
-\&  1;
+.Vb 1
+\&    _\|_PACKAGE_\|_\->load_plugins(\*(AqWeb::NoCache\*(Aq);
 .Ve
-.SH "DESCRIPTION"
-.IX Header "DESCRIPTION"
-.SH "SEE ALSO"
-.IX Header "SEE ALSO"
-HTML::FillInForm, Amon2
