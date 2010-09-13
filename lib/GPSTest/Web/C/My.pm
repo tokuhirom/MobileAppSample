@@ -16,13 +16,7 @@ sub index {
     my $ticket = GPSTest::M::Ticket->create();
     my $sid = $c->session->session_id();
     my $callback = URI::WithBase->new($c->uri_for("/my/checkin/$sid/$ticket"), $c->req->base);
-    my $is_gps = do {
-        if ($agent->is_docomo) {
-            0;
-        } else {
-            $c->req->mobile_agent->gps_compliant ? 1 : 0
-        }
-    };
+    my $is_gps = 0;
     my $tag = gps_a(
         carrier      => $carrier,
         is_gps       => $is_gps,
@@ -44,11 +38,7 @@ sub checkin {
         "戻るボタンをおしたり、リロードしたりしてはだめです"
       );
     my $locator = do {
-        if ($c->req->mobile_agent->is_docomo) {
-            $HTTP::MobileAgent::Plugin::Locator::LOCATOR_BASIC;
-        } else {
-            $HTTP::MobileAgent::Plugin::Locator::LOCATOR_AUTO_FROM_COMPLIANT;
-        }
+        $HTTP::MobileAgent::Plugin::Locator::LOCATOR_BASIC;
     };
     my $location_raw = $c->req->mobile_agent->get_location($c->req, {locator => $locator}) // return $c->show_error("cannot get location info");
     my $location =

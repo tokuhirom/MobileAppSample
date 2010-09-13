@@ -9,6 +9,4 @@ __END__
 
 =head1 NOTE
 
-- display iarea name
-- display google maps
-
+validate docomo gps information with iarea
