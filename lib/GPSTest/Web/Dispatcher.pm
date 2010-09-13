@@ -10,11 +10,11 @@ sub c2 {
     }
 }
 
-c2 '/'                      => 'Root#index';
-c2 '/login'                 => 'Root#login';
-c2 '/my/'                   => 'My#index';
-c2 '/my/checkin/:ticket_id' => 'My#checkin';
-c2 '/my/history'            => 'My#history';
-c2 '/my/pos/show'           => 'My::Pos#show';
+c2 '/'                           => 'Root#index';
+c2 '/login'                      => 'Root#login';
+c2 '/my/'                        => 'My#index';
+c2 '/my/checkin/:sid/:ticket_id' => 'My#checkin';
+c2 '/my/history'                 => 'My#history';
+c2 '/my/pos/show'                => 'My::Pos#show';
 
 1;

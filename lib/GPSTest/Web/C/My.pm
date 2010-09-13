@@ -7,16 +7,18 @@ use GPSTest::M::Ticket;
 use Geo::Hash::XS;
 use GIS::Distance::Lite;
 use Geo::Coordinates::Converter::iArea;
+use URI::WithBase;
 
 sub index {
     my ($class, $c) = @_;
     my $carrier = $c->req->mobile_agent->carrier;
     my $ticket = GPSTest::M::Ticket->create();
-    my $callback = $c->uri_for("/my/checkin/$ticket");
+    my $sid = $c->session->session_id();
+    my $callback = URI::WithBase->new($c->uri_for("/my/checkin/$sid/$ticket"), $c->req->base);
     my $tag = gps_a(
         carrier      => $carrier,
         is_gps       => 0,
-        callback_url => $callback,
+        callback_url => $callback->abs->as_string(),
     );
     $c->render('my/index.tt', {
         a_tag => mark_raw($tag),

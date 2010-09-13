@@ -32,8 +32,11 @@ use parent qw/<%= $module %> Amon2::Web/;
 __PACKAGE__->add_config(
     'Text::Xslate' => {
         'syntax'   => 'TTerse',
+        'module'   => [ 'Text::Xslate::Bridge::TT2Like' ],
         'function' => {
             c => sub { Amon2->context() },
+            uri_with => sub { Amon2->context()->req->uri_with(@_) },
+            uri_for  => sub { Amon2->context()->uri_for(@_) },
         },
     }
 );
@@ -201,6 +204,7 @@ builder {
     enable 'Plack::Middleware::Static',
         path => qr{^/static/},
         root => './htdocs/';
+    enable 'Plack::Middleware::ReverseProxy';
     <%= $module %>::Web->to_app();
 };
 -- Makefile.PL
@@ -210,6 +214,8 @@ all_from "lib/<%= $path %>.pm";
 tests 't/*.t t/*/*.t t/*/*/*.t';
 requires 'Amon2';
 requires 'Text::Xslate';
+requires 'Text::Xslate::Bridge::TT2Like';
+requires 'Plack::Middleware::ReverseProxy';
 recursive_author_tests('xt');
 
 WriteAll;

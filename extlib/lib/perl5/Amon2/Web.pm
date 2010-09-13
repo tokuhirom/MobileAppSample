@@ -97,21 +97,17 @@ sub to_app {
 }
 
 sub uri_for {
-    my ( $self, $path, $args )  = @_;
-    my $uri = $self->req->base;
-    my $p2 = $uri->path;
-    if ($p2 =~ m{/$} && $path =~ m{^/}) {
-        $path =~ s!^/!!;
+    my ($self, $path, $query) = @_;
+    my $root = $self->req->{env}->{SCRIPT_NAME} || '/';
+    $root =~ s{([^/])$}{$1/};
+    $path =~ s{^/}{};
+
+    my @q;
+    while (my ($key, $val) = each %$query) {
+        $val = URI::Escape::uri_escape(Encode::encode($self->encoding, $val));
+        push @q, "${key}=${val}";
     }
-    $uri->path( "$p2$path" );
-    if ($args) {
-        if (ref $args eq 'ARRAY') {
-            $uri->query_form(@$args);
-        } else {
-            $uri->query_form($args);
-        }
-    }
-    $uri;
+    $root . $path . (scalar @q ? '?' . join('&', @q) : '');
 }
 
 sub render {
@@ -130,7 +126,5 @@ sub render {
         $html,
     );
 }
-
-sub args { $_[0]->{args} }
 
 1;

@@ -6,8 +6,7 @@ use HTTP::MobileAgent;
 use HTTP::MobileAgent::Plugin::Locator;
 use GPSTest::DB;
 use HTTP::Session::Store::DBI;
-use HTTP::Session::State::Cookie;
-use HTTP::Session::State::URI;
+use GPSTest::HTTP::Session::State;
 use HTTP::Session;
 
 __PACKAGE__->add_config(
@@ -31,10 +30,8 @@ __PACKAGE__->load_plugins('Web::FillInFormLite');
 sub session {
     my $c = shift;
     $c->{session} //= do {
-        my $state = HTTP::Session::State::Cookie->new();
-        my $store = HTTP::Session::Store::DBI->new(
-            dbh => $c->db->dbh,
-        );
+        my $state = GPSTest::HTTP::Session::State->new();
+        my $store = HTTP::Session::Store::DBI->new( dbh => $c->db->dbh, );
         HTTP::Session->new(
             state   => $state,
             store   => $store,
@@ -62,10 +59,8 @@ __PACKAGE__->add_trigger(
 __PACKAGE__->add_trigger(
     AFTER_DISPATCH => sub {
         my ($c, $res) = @_;
-        if ($c->{session}) {
-            $c->session->response_filter($res);
-            $c->session->finalize();
-        }
+        $c->session->response_filter($res);
+        $c->session->finalize();
     },
 );
 
