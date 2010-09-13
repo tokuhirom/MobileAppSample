@@ -11,13 +11,21 @@ use URI::WithBase;
 
 sub index {
     my ($class, $c) = @_;
-    my $carrier = $c->req->mobile_agent->carrier;
+    my $agent = $c->req->mobile_agent;
+    my $carrier = $agent->carrier;
     my $ticket = GPSTest::M::Ticket->create();
     my $sid = $c->session->session_id();
     my $callback = URI::WithBase->new($c->uri_for("/my/checkin/$sid/$ticket"), $c->req->base);
+    my $is_gps = do {
+        if ($agent->is_docomo) {
+            0;
+        } else {
+            $c->req->mobile_agent->gps_compliant ? 1 : 0
+        }
+    };
     my $tag = gps_a(
         carrier      => $carrier,
-        is_gps       => 0,
+        is_gps       => $is_gps,
         callback_url => $callback->abs->as_string(),
     );
     $c->render('my/index.tt', {
@@ -35,8 +43,14 @@ sub checkin {
       // return $c->show_error(
         "戻るボタンをおしたり、リロードしたりしてはだめです"
       );
-    my $location_raw = $c->req->mobile_agent->get_location($c->req) // return $c->show_error("cannot get location info");
-
+    my $locator = do {
+        if ($c->req->mobile_agent->is_docomo) {
+            $HTTP::MobileAgent::Plugin::Locator::LOCATOR_BASIC;
+        } else {
+            $HTTP::MobileAgent::Plugin::Locator::LOCATOR_AUTO_FROM_COMPLIANT;
+        }
+    };
+    my $location_raw = $c->req->mobile_agent->get_location($c->req, {locator => $locator}) // return $c->show_error("cannot get location info");
     my $location =
       Geo::Coordinates::Converter->new( point => $location_raw->clone )
       ->convert('degree' => 'wgs84');
@@ -78,11 +92,12 @@ sub checkin {
         {
             location => $location,
             distance => $distance,
-            areaname => areacode2areaname($areacode),
+            areaname => areacode2areaname($areacode) || undef,
             pos      => $pos,
         }
     );
 }
+*post_checkin = *checkin;
 
 sub history {
     my ($class, $c) = @_;

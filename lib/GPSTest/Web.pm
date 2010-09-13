@@ -61,6 +61,7 @@ __PACKAGE__->add_trigger(
         my ($c, $res) = @_;
         $c->session->response_filter($res);
         $c->session->finalize();
+        $res->content_length(length $res->content);
     },
 );
 
